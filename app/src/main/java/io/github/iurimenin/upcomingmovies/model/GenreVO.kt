@@ -6,7 +6,7 @@ import android.os.Parcelable
 /**
  * Created by Iuri Menin on 28/08/17.
  */
-class GenreVO : Parcelable {
+class GenreVO protected constructor(`in`: Parcel) : Parcelable {
 
     var id: Int? = null
     var name: String? = null
@@ -17,21 +17,27 @@ class GenreVO : Parcelable {
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeInt(this.id!!)
-        dest.writeString(this.name)
+        dest.writeString(this.name!!)
     }
 
-    constructor(id: Int){
-        this.id = id
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as GenreVO
+
+        if (id != other.id) return false
+
+        return true
     }
 
-    protected constructor(`in`: Parcel) {
-        this.id = `in`.readInt()
-        this.name = `in`.readString()
+    override fun hashCode(): Int {
+        return id ?: 0
     }
 
     companion object {
 
-        val CREATOR: Parcelable.Creator<GenreVO> = object : Parcelable.Creator<GenreVO> {
+        @JvmField val CREATOR: Parcelable.Creator<GenreVO> = object : Parcelable.Creator<GenreVO> {
             override fun createFromParcel(source: Parcel): GenreVO {
                 return GenreVO(source)
             }
@@ -40,8 +46,13 @@ class GenreVO : Parcelable {
                 return arrayOfNulls(size)
             }
         }
-        val PARCELABLE_KEY: String = "genre"
         val TAG: String = "GenreVO"
+        val  PARCELABLE_KEY: String = "genre"
+    }
+
+    init {
+        this.id = `in`.readInt()
+        this.name = `in`.readString()
     }
 
 }

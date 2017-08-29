@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_list_movies.*
 /**
  * Created by Iuri Menin on 26/08/17.
  */
-class MovieFragment : Fragment(), AsyncTaskCallback {
+class MovieListFragment : Fragment(), AsyncTaskCallback {
 
     private var mMovieAdapter: MovieAdapter? = null
     private var mMoviesProgressBar : ProgressBar? = null

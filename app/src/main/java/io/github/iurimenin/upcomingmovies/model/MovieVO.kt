@@ -25,6 +25,21 @@ class MovieVO protected constructor(`in`: Parcel) : Parcelable {
     var genre_ids: ArrayList<Int> = ArrayList()
     var genres: ArrayList<GenreVO> = ArrayList()
 
+    fun getGenreString() : String {
+
+        val sb = StringBuilder()
+        if (genres != null ) {
+            for (genre in genres) {
+                if (sb.toString().isNotEmpty())
+                    sb.append(", ")
+
+                sb.append(genre.name)
+            }
+        }
+
+        return sb.toString()
+    }
+
     override fun describeContents(): Int {
         return 0
     }
@@ -43,7 +58,7 @@ class MovieVO protected constructor(`in`: Parcel) : Parcelable {
         dest.writeString(this.overview)
         dest.writeString(this.release_date)
         dest.writeList(this.genre_ids)
-        dest.writeList(this.genres)
+        dest.writeTypedList(this.genres)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -63,7 +78,7 @@ class MovieVO protected constructor(`in`: Parcel) : Parcelable {
 
     companion object {
 
-        val CREATOR: Parcelable.Creator<MovieVO> = object : Parcelable.Creator<MovieVO> {
+        @JvmField val CREATOR: Parcelable.Creator<MovieVO> = object : Parcelable.Creator<MovieVO> {
             override fun createFromParcel(source: Parcel): MovieVO {
                 return MovieVO(source)
             }
@@ -88,9 +103,9 @@ class MovieVO protected constructor(`in`: Parcel) : Parcelable {
         this.adult = `in`.readString()
         this.overview = `in`.readString()
         this.release_date = `in`.readString()
-        this.genre_ids = ArrayList<Int>()
+        this.genre_ids = ArrayList()
         `in`.readList(this.genre_ids, Int::class.java.classLoader)
-        this.genres = ArrayList<GenreVO>()
+        this.genres = ArrayList()
         `in`.readTypedList(this.genres, GenreVO.CREATOR)
     }
 

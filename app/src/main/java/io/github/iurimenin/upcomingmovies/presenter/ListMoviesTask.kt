@@ -181,10 +181,20 @@ class ListMoviesTask(private val mCallback: AsyncTaskCallback,
         val moviesWithPoster = ArrayList<MovieVO>()
         for (movie in movies) {
             if(movie.poster_path != null && movie.poster_path.isNotEmpty()) {
-                movie.genres = ArrayList<GenreVO>()
-                movie.genre_ids
-                        .map { mGenreList.filter { vo -> vo.id == it }.single() }
-                        .forEach { movie.genres.add(it) }
+                movie.genres = ArrayList()
+//                movie.genre_ids
+//                        .map { mGenreList.single { vo -> vo.id == it } }
+//                        .forEach { movie.genres.add(it) }
+
+                for (genre_id in movie.genre_ids) {
+                    for (genreVO in mGenreList) {
+                        if (genreVO.id == genre_id) {
+                            movie.genres.add(genreVO)
+                            break
+                        }
+                    }
+                }
+
                 moviesWithPoster.add(movie)
             }
         }

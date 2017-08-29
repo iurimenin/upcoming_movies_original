@@ -16,7 +16,7 @@ class ListMoviesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_list_movies)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .add(R.id.activityListMovies, MovieFragment())
+                    .add(R.id.activityListMovies, MovieListFragment())
                     .commit()
         }
     }
