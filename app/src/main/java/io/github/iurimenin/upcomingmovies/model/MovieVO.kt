@@ -8,7 +8,7 @@ import java.util.*
 /**
  * Created by Iuri Menin on 26/08/17.
  */
-class MovieVO : Parcelable {
+class MovieVO protected constructor(`in`: Parcel) : Parcelable {
 
     var vote_count: String = ""
     var id: Int = 0
@@ -58,10 +58,24 @@ class MovieVO : Parcelable {
     }
 
     override fun hashCode(): Int {
-        return id?.hashCode() ?: 0
+        return id.hashCode()
     }
 
-    protected constructor(`in`: Parcel) {
+    companion object {
+
+        val CREATOR: Parcelable.Creator<MovieVO> = object : Parcelable.Creator<MovieVO> {
+            override fun createFromParcel(source: Parcel): MovieVO {
+                return MovieVO(source)
+            }
+
+            override fun newArray(size: Int): Array<MovieVO?> {
+                return arrayOfNulls(size)
+            }
+        }
+        val  PARCELABLE_KEY: String = "movie"
+    }
+
+    init {
         this.vote_count = `in`.readString()
         this.id = `in`.readInt()
         this.vote_average = `in`.readString()
@@ -78,20 +92,6 @@ class MovieVO : Parcelable {
         `in`.readList(this.genre_ids, Int::class.java.classLoader)
         this.genres = ArrayList<GenreVO>()
         `in`.readTypedList(this.genres, GenreVO.CREATOR)
-    }
-
-    companion object {
-
-        val CREATOR: Parcelable.Creator<MovieVO> = object : Parcelable.Creator<MovieVO> {
-            override fun createFromParcel(source: Parcel): MovieVO {
-                return MovieVO(source)
-            }
-
-            override fun newArray(size: Int): Array<MovieVO?> {
-                return arrayOfNulls(size)
-            }
-        }
-        val  PARCELABLE_KEY: String = "movie"
     }
 
 

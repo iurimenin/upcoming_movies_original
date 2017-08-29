@@ -10,9 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.GridView
+import android.widget.ProgressBar
 import io.github.iurimenin.upcomingmovies.R
 import io.github.iurimenin.upcomingmovies.model.MovieVO
-import io.github.iurimenin.upcomingmovies.presenter.AsyncTaskDelegate
+import io.github.iurimenin.upcomingmovies.presenter.AsyncTaskCallback
 import io.github.iurimenin.upcomingmovies.presenter.ListMoviesTask
 import io.github.iurimenin.upcomingmovies.presenter.Utils
 import kotlinx.android.synthetic.main.activity_list_movies.*
@@ -21,9 +22,10 @@ import kotlinx.android.synthetic.main.activity_list_movies.*
 /**
  * Created by Iuri Menin on 26/08/17.
  */
-class MovieFragment : Fragment(), AsyncTaskDelegate {
+class MovieFragment : Fragment(), AsyncTaskCallback {
 
     private var mMovieAdapter: MovieAdapter? = null
+    private var mMoviesProgressBar : ProgressBar? = null
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,7 @@ class MovieFragment : Fragment(), AsyncTaskDelegate {
         val rootView = inflater?.inflate(R.layout.fragment_list_movies, container, false)
         val gridViewMovies = rootView?.findViewById<GridView>(R.id.gridViewMovies)
 
+        mMoviesProgressBar = rootView?.findViewById<ProgressBar>(R.id.moviesProgressBar)
         mMovieAdapter = MovieAdapter(activity, ArrayList<MovieVO>())
         gridViewMovies?.adapter = mMovieAdapter
         gridViewMovies?.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
@@ -64,7 +67,7 @@ class MovieFragment : Fragment(), AsyncTaskDelegate {
 
         val utils = Utils()
         if (utils.isNetworkConnected(this.context)) {
-            val fetchWeatherTask = ListMoviesTask(this, context)
+            val fetchWeatherTask = ListMoviesTask(this, context, mMoviesProgressBar)
             fetchWeatherTask.execute()
         } else {
             val snackbar = Snackbar.make(activityListMovies,

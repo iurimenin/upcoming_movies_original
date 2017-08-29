@@ -40,7 +40,8 @@ class GenreVO : Parcelable {
                 return arrayOfNulls(size)
             }
         }
-        val  PARCELABLE_KEY: String = "genre"
+        val PARCELABLE_KEY: String = "genre"
+        val TAG: String = "GenreVO"
     }
 
 }
