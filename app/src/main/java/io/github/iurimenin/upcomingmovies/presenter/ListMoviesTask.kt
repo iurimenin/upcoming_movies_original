@@ -18,6 +18,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 /**
@@ -35,7 +36,7 @@ class ListMoviesTask(private val mCallback: AsyncTaskCallback,
 
     private var mBufferedReader: BufferedReader? = null
     private var mUrlConnection: HttpURLConnection? = null
-    private val mGenreList = ArrayList<GenreVO>()
+    private val mGenreList = HashMap<Int?, GenreVO>()
 
     override fun onPreExecute() {
         mMoviesProgressBar?.visibility = View.VISIBLE
@@ -119,7 +120,9 @@ class ListMoviesTask(private val mCallback: AsyncTaskCallback,
 
         if (!jsonStored.isNullOrEmpty()) {
             val listStored : ArrayList<GenreVO> = gson.fromJson(jsonStored, typeGenre)
-            mGenreList.addAll(listStored)
+            for (genreVO in listStored) {
+                mGenreList.put(genreVO.id, genreVO)
+            }
         } else {
             try {
                 val uri = Uri.parse(BuildConfig.THEMOVIEDB_API_URL).buildUpon()
@@ -157,7 +160,9 @@ class ListMoviesTask(private val mCallback: AsyncTaskCallback,
                         val editor = sharedPref.edit()
                         editor.putString(GenreVO.TAG, genreJson.get(GENRES).toString())
                         editor.apply()
-                        genreList.addAll(genreList)
+                        for (genreVO in genreList) {
+                            mGenreList.put(genreVO.id, genreVO)
+                        }
                     }
                 }
             } catch (e: Exception) {
@@ -178,26 +183,12 @@ class ListMoviesTask(private val mCallback: AsyncTaskCallback,
 
         val movies : ArrayList<MovieVO> = gson.fromJson(moviesArray.toString(), typeMovies)
 
-        val moviesWithPoster = ArrayList<MovieVO>()
         for (movie in movies) {
-            if(movie.poster_path != null && movie.poster_path.isNotEmpty()) {
-                movie.genres = ArrayList()
-//                movie.genre_ids
-//                        .map { mGenreList.single { vo -> vo.id == it } }
-//                        .forEach { movie.genres.add(it) }
-
-                for (genre_id in movie.genre_ids) {
-                    for (genreVO in mGenreList) {
-                        if (genreVO.id == genre_id) {
-                            movie.genres.add(genreVO)
-                            break
-                        }
-                    }
-                }
-
-                moviesWithPoster.add(movie)
+            movie.genres = ArrayList()
+            for (genre_id in movie.genre_ids) {
+                mGenreList[genre_id]?.let { movie.genres.add(it) }
             }
         }
-        return moviesWithPoster
+        return movies
     }
 }

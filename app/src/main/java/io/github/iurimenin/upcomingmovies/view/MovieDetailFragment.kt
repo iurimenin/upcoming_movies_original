@@ -27,20 +27,54 @@ class MovieDetailFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?,
+                              @Nullable savedInstanceState: Bundle?): View? {
 
-        val rootView = inflater?.inflate(R.layout.fragment_movie_datail, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_movie_datail,
+                container,
+                false)
 
         movieVO = activity.intent.extras.getParcelable(MovieVO.PARCELABLE_KEY)
 
-        rootView?.findViewById<TextView>(R.id.textViewName)?.text = movieVO?.title
-        rootView?.findViewById<TextView>(R.id.textViewReleaseDate)?.text = mUtils.convertDate(context, movieVO?.release_date!!)
-        rootView?.findViewById<TextView>(R.id.textViewGenre)?.text = movieVO?.getGenreString()
-        rootView?.findViewById<TextView>(R.id.textViewOverview)?.text = movieVO?.overview
+        val textViewName = rootView?.findViewById<TextView>(R.id.textViewName)
+        val textViewReleaseDate = rootView?.findViewById<TextView>(R.id.textViewReleaseDate)
+        val textViewGenre = rootView?.findViewById<TextView>(R.id.textViewGenre)
+        val textViewOverview = rootView?.findViewById<TextView>(R.id.textViewOverview)
+        val imageViewMoviePoster = rootView?.findViewById<ImageView>(R.id.imageViewMoviePoster)
+        val genres = movieVO?.getGenreString()
 
-        Picasso.with(context)
-                .load(mUtils.getImageUrl780(movieVO?.poster_path!!))
-                .into(rootView?.findViewById<ImageView>(R.id.imageViewMoviePoster))
+        textViewName?.text = movieVO?.title
+
+        if (movieVO?.release_date?.isEmpty() == false)
+            textViewReleaseDate?.text = mUtils.convertDate(context, movieVO?.release_date!!)
+        else
+            textViewReleaseDate?.text = context.getString(R.string.no_release_date)
+
+        if (genres.isNullOrEmpty())
+            textViewGenre?.text = context.getString(R.string.no_genre)
+        else
+            textViewGenre?.text = movieVO?.getGenreString()
+
+        if (movieVO?.overview?.isEmpty() == true)
+            textViewOverview?.text = getString(R.string.no_overview)
+        else
+            textViewOverview?.text = movieVO?.overview
+
+
+        var imagePath = ""
+        if (movieVO?.poster_path?.isEmpty() == false)
+            imagePath = movieVO?.poster_path!!
+        else if (movieVO?.backdrop_path?.isEmpty() == false)
+            imagePath = movieVO?.backdrop_path!!
+
+        if (imagePath.isNotEmpty())
+            Picasso.with(context)
+                    .load(mUtils.getImageUrl780(imagePath))
+                    .into(imageViewMoviePoster)
+        else
+            Picasso.with(context)
+                    .load(R.drawable.no_image_available)
+                    .into(imageViewMoviePoster)
 
         return rootView
     }

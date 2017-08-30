@@ -31,7 +31,7 @@ class Utils {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         try {
             val date = simpleDateFormat.parse(releaseDate)
-            return DateUtils.formatDateTime(context, date.getTime(),
+            return DateUtils.formatDateTime(context, date.time,
                     DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR)
         } catch (e: ParseException) {
             Log.e(TAG, "Erro in method convertDate", e)

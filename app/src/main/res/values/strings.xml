@@ -5,4 +5,8 @@
     <string name="release_date">Release Date</string>
     <string name="overview">Overview</string>
     <string name="genre">Genre</string>
+    <string name="name">Name</string>
+    <string name="no_overview">No overview available</string>
+    <string name="no_release_date">No Release date avalible</string>
+    <string name="no_genre">No genre avalible</string>
 </resources>

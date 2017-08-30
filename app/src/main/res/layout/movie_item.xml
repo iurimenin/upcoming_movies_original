@@ -1,9 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:scaleType="fitStart"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/movieImage"
-    android:orientation="vertical"
-    android:adjustViewBounds="true"/>
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_marginStart="8dp"
+        android:id="@+id/firstLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@+id/secondView"
+        android:orientation="vertical">
+
+        <ImageView
+            android:scaleType="fitStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/movieImage"
+            android:orientation="vertical"
+            android:adjustViewBounds="true"
+            android:src="@drawable/no_image_available" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/secondView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:layout_marginStart="8dp"
+        android:id="@+id/thirdLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/secondView"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryText"
+                android:text="@string/name"/>
+
+            <TextView
+                android:id="@+id/textViewName"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondaryText"
+                android:text="@string/app_name"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryText"
+                android:text="@string/genre"/>
+
+            <TextView
+                android:id="@+id/textViewGenre"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/colorSecondaryText"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/release_date"
+                android:textColor="@color/colorPrimaryText"/>
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:id="@+id/textViewReleaseDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/colorSecondaryText"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_below="@id/firstLayout"
+        android:layout_height="1dp"
+        android:id="@+id/viewDivider"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:background="@color/colorDivider" />
+</RelativeLayout>
