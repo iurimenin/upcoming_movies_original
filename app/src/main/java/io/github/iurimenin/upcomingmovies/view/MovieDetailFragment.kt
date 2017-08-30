@@ -60,22 +60,15 @@ class MovieDetailFragment : Fragment() {
         else
             textViewOverview?.text = movieVO?.overview
 
-
-        var imagePath = ""
-        if (movieVO?.poster_path?.isEmpty() == false)
-            imagePath = movieVO?.poster_path!!
-        else if (movieVO?.backdrop_path?.isEmpty() == false)
-            imagePath = movieVO?.backdrop_path!!
-
-        if (imagePath.isNotEmpty())
+        if (movieVO?.poster_path?.isEmpty() == false) {
             Picasso.with(context)
-                    .load(mUtils.getImageUrl780(imagePath))
+                    .load(mUtils.getImageUrl780(movieVO?.poster_path!!))
                     .into(imageViewMoviePoster)
-        else
+        } else {
             Picasso.with(context)
                     .load(R.drawable.no_image_available)
                     .into(imageViewMoviePoster)
-
+        }
         return rootView
     }
 }
