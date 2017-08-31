@@ -1,4 +1,4 @@
-package io.github.iurimenin.upcomingmovies.presenter
+package io.github.iurimenin.upcomingmovies.util
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -6,6 +6,7 @@ import android.text.format.DateUtils
 import android.util.Log
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -28,7 +29,7 @@ class Utils {
 
     fun convertDate(context: Context, releaseDate: String): String {
 
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         try {
             val date = simpleDateFormat.parse(releaseDate)
             return DateUtils.formatDateTime(context, date.time,

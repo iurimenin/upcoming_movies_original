@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import io.github.iurimenin.upcomingmovies.R
 import io.github.iurimenin.upcomingmovies.model.MovieVO
-import io.github.iurimenin.upcomingmovies.presenter.Utils
+import io.github.iurimenin.upcomingmovies.util.Utils
 
 
 /**
@@ -19,8 +19,8 @@ import io.github.iurimenin.upcomingmovies.presenter.Utils
  */
 class MovieDetailFragment : Fragment() {
 
+    private val mUtils = Utils()
     private var movieVO: MovieVO? = null
-    val mUtils = Utils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

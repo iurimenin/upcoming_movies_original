@@ -9,4 +9,6 @@
     <string name="no_overview">Nenhum resumo disponível</string>
     <string name="no_release_date">Nenhuma data de lançamento disponível</string>
     <string name="no_genre">Nenhum gênero disponível</string>
+    <string name="search">Pesquisar</string>
+    <string name="poster_image">Imagem do poster do filme</string>
 </resources>

@@ -9,4 +9,6 @@
     <string name="no_overview">No overview available</string>
     <string name="no_release_date">No Release date avalible</string>
     <string name="no_genre">No genre avalible</string>
+    <string name="search">Search</string>
+    <string name="poster_image">Movie poster image</string>
 </resources>

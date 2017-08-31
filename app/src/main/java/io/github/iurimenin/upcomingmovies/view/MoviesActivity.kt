@@ -9,14 +9,14 @@ import io.github.iurimenin.upcomingmovies.R
 /**
  * Created by Iuri Menin on 26/08/17.
  */
-class ListMoviesActivity : AppCompatActivity() {
+class MoviesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_movies)
+        setContentView(R.layout.activity_movies)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .add(R.id.activityListMovies, MovieListFragment())
+                    .add(R.id.activityListMovies, MoviesFragment())
                     .commit()
         }
     }

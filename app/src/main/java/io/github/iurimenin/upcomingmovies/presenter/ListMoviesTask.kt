@@ -4,8 +4,6 @@ import android.content.Context
 import android.net.Uri
 import android.os.AsyncTask
 import android.util.Log
-import android.view.View
-import android.widget.ProgressBar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.github.iurimenin.upcomingmovies.BuildConfig
@@ -25,8 +23,7 @@ import kotlin.collections.HashMap
  * Created by Iuri Menin on 26/08/17.
  */
 class ListMoviesTask(private val mCallback: AsyncTaskCallback,
-                     private val mContext: Context,
-                     private val mMoviesProgressBar : ProgressBar?) :
+                     private val mContext: Context) :
         AsyncTask<String, Void, ArrayList<MovieVO>>() {
 
     private val GENRES = "genres"
@@ -39,7 +36,6 @@ class ListMoviesTask(private val mCallback: AsyncTaskCallback,
     private val mGenreList = HashMap<Int?, GenreVO>()
 
     override fun onPreExecute() {
-        mMoviesProgressBar?.visibility = View.VISIBLE
         loadGenres()
     }
 
@@ -48,7 +44,6 @@ class ListMoviesTask(private val mCallback: AsyncTaskCallback,
     }
 
     override fun onPostExecute(result: ArrayList<MovieVO>) {
-        mMoviesProgressBar?.visibility = View.INVISIBLE
         super.onPostExecute(result)
         mCallback.processFinish(result)
     }

@@ -19,7 +19,8 @@
             android:id="@+id/movieImage"
             android:orientation="vertical"
             android:adjustViewBounds="true"
-            android:src="@drawable/no_image_available" />
+            android:src="@drawable/no_image_available"
+            android:contentDescription="@string/poster_image"/>
     </LinearLayout>
 
     <View

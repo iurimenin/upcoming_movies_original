@@ -32,7 +32,7 @@
                     android:layout_height="250dp"
                     android:scaleType="fitCenter"
                     android:id="@+id/imageViewMoviePoster"
-                    android:contentDescription="moviePoster" />
+                    android:contentDescription="@string/poster_image" />
 
                 <LinearLayout
                     android:paddingTop="@dimen/activity_top_margin"
@@ -42,6 +42,7 @@
 
                     <LinearLayout
                         android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -62,6 +63,7 @@
 
                     <LinearLayout
                         android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -86,6 +88,7 @@
 
             <LinearLayout
                 android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">

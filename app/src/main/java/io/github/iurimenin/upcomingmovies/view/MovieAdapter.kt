@@ -10,16 +10,19 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import io.github.iurimenin.upcomingmovies.R
 import io.github.iurimenin.upcomingmovies.model.MovieVO
-import io.github.iurimenin.upcomingmovies.presenter.Utils
+import io.github.iurimenin.upcomingmovies.util.Utils
 
 
 /**
  * Created by Iuri Menin on 26/08/17.
  */
-class MovieAdapter(context: Context, movieVOs: List<MovieVO>) :
+class MovieAdapter(context: Context, private var movieVOs: ArrayList<MovieVO>) :
         ArrayAdapter<MovieVO>(context, 0, movieVOs) {
 
-    var mUtils = Utils()
+    private var mUtils = Utils()
+    private var mInitialListFiscalizacoes: ArrayList<MovieVO> = ArrayList()
+    private var mFilteredListFiscalizacoes: ArrayList<MovieVO> = ArrayList()
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
         var convertView = convertView
@@ -37,7 +40,7 @@ class MovieAdapter(context: Context, movieVOs: List<MovieVO>) :
 
         textViewName?.text = movieVO.title
 
-        if (genres.isNullOrEmpty())
+        if (genres.isEmpty())
             textViewGenre?.text = context.getString(R.string.no_genre)
         else
             textViewGenre?.text = movieVO?.getGenreString()
@@ -63,5 +66,27 @@ class MovieAdapter(context: Context, movieVOs: List<MovieVO>) :
                     .into(movieImage)
 
         return convertView!!
+    }
+
+    fun flushFilter() {
+        mInitialListFiscalizacoes.clear()
+        mInitialListFiscalizacoes.addAll(this.movieVOs)
+        mFilteredListFiscalizacoes.clear()
+        notifyDataSetChanged()
+    }
+
+    fun setFilter(queryText: String) {
+        mFilteredListFiscalizacoes.clear()
+        if (!queryText.isEmpty()) {
+            this.mInitialListFiscalizacoes
+                    .filter { it.original_title?.toLowerCase()?.contains(queryText.toLowerCase()) == true }
+                    .forEach { mFilteredListFiscalizacoes.add(it) }
+        } else {
+            mFilteredListFiscalizacoes.addAll(this.mInitialListFiscalizacoes)
+        }
+
+        movieVOs.clear()
+        movieVOs.addAll(mFilteredListFiscalizacoes)
+        notifyDataSetChanged()
     }
 }
