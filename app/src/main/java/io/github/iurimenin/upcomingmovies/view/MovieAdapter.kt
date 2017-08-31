@@ -79,7 +79,7 @@ class MovieAdapter(context: Context, private var movieVOs: ArrayList<MovieVO>) :
         mFilteredListFiscalizacoes.clear()
         if (!queryText.isEmpty()) {
             this.mInitialListFiscalizacoes
-                    .filter { it.original_title?.toLowerCase()?.contains(queryText.toLowerCase()) == true }
+                    .filter { it.title?.toLowerCase()?.contains(queryText.toLowerCase()) == true }
                     .forEach { mFilteredListFiscalizacoes.add(it) }
         } else {
             mFilteredListFiscalizacoes.addAll(this.mInitialListFiscalizacoes)
