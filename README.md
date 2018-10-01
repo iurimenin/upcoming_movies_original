@@ -5,6 +5,6 @@
 * [Picasso](http://square.github.io/picasso/) - Used because it's a very simple and powerful library that handle image downloading and caching.
 
 ### ScreenShots
-![List](https://github.com/iurimenin/upcoming_movies/blob/master/screenshots/Screenshot_20170831-095526.png?raw=true)
-![Detail](https://github.com/iurimenin/upcoming_movies/blob/master/screenshots/Screenshot_20170831-095533.png?raw=true)
-![Search](https://github.com/iurimenin/upcoming_movies/blob/master/screenshots/Screenshot_20170831-095545.png?raw=true)
+![List](https://github.com/iurimenin/upcoming_movies_original/blob/master/screenshots/Screenshot_20170831-095526.png?raw=true)
+![Detail](https://github.com/iurimenin/upcoming_movies_original/blob/master/screenshots/Screenshot_20170831-095533.png?raw=true)
+![Search](https://github.com/iurimenin/upcoming_movies_original/blob/master/screenshots/Screenshot_20170831-095545.png?raw=true)
